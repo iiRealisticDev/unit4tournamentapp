@@ -1,13 +1,12 @@
 export type Participant = string;
 
-
-type Event = {
+export type Event = {
   name: string;
   points: number[];
   dateStart: Date;
   dateEnd: Date;
-  eventCat: "Sport" | "Academic";
-  eventType: "Individual" | "Team";
+  eventCat: "sport" | "academic";
+  eventType: "individual" | "team";
   winner: undefined | Participant;
 }
 export type Team = {

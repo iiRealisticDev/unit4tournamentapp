@@ -4,8 +4,21 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "node dist/index.js"
+    "start": "node dist/index.js",
+    "build": "rm -r -f dist && tsc",
+    "lint": "eslint . --ext .ts",
+    "format": "eslint . --ext .ts --fix",
+    "stb": "npm run start && npm run build"
   },
   "author": "Thomas Elston-King",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0"
+  },
+  "dependencies": {
+    "terser": "^5.28.1"
+  }
 }
