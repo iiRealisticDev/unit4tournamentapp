@@ -1,0 +1,26 @@
+teams = [] // imported from the teams db
+
+FUNCTION run ()
+BEGIN
+  // ask user for teams name, id or "all"
+  OUTPUT "Please provide a team name, ID or say \"all\" to view all teams."
+  INPUT team_name
+
+  // validate
+  IF event == "all" THEN
+    // show all events
+    FOR i = 0 TO LENGTH(teams) - 1 DO
+      OUTPUT teams[i].name
+    END FOR
+  ELSE
+    // find event
+    FOR i = 0 TO LENGTH(teams) - 1 DO
+      IF teams[i].name == event OR teams[i].id == event THEN
+        OUTPUT name
+        OUTPUT id
+        // etc
+        BREAK
+      END IF
+    END FOR
+  END IF
+END

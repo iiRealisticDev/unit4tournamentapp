@@ -1,0 +1,11 @@
+{
+  "name": "tournament-app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "node dist/index.js"
+  },
+  "author": "Thomas Elston-King",
+  "license": "ISC"
+}

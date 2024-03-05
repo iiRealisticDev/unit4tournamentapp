@@ -1,0 +1,26 @@
+individuals = [] // imported from the individuals db
+
+FUNCTION run ()
+BEGIN
+  // ask user for individual name, id or "all"
+  OUTPUT "Please provide an individual name, ID or say \"all\" to view all individuals."
+  INPUT individual_name
+
+  // validate
+  IF event == "all" THEN
+    // show all events
+    FOR i = 0 TO LENGTH(individual) - 1 DO
+      OUTPUT individual[i].name
+    END FOR
+  ELSE
+    // find event
+    FOR i = 0 TO LENGTH(individual) - 1 DO
+      IF individual[i].name == event OR individual[i].id == event THEN
+        OUTPUT name
+        OUTPUT id
+        // etc
+        BREAK
+      END IF
+    END FOR
+  END IF
+END

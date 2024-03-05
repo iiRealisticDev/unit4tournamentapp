@@ -1,0 +1,41 @@
+// .DSCode is a file extension that provides a syntax highlighting for some basic psuedocode, so I decided to use that.
+
+// Create a dictionary of {id: command}
+commands = {
+  1: "new_event",
+  2: "view_event",
+  3: "add_individual",
+  4: "add_team",
+  5: "view_individual",
+  6: "view_team",
+  7: "set_event_winner",
+  8: "exit"
+}
+// Display welcome screen to user
+PRINT "
+ _       __     __                             __           ______                                                  __     _____                 _                ___                __
+| |     / /__  / /________  ____ ___  ___     / /_____     /_  __/___  __  ___________  ____ _____ ___  ___  ____  / /_   / ___/_________  _____(_)___  ____ _   /   |  ____  ____  / /
+| | /| / / _ \/ / ___/ __ \/ __ `__ \/ _ \   / __/ __ \     / / / __ \/ / / / ___/ __ \/ __ `/ __ `__ \/ _ \/ __ \/ __/   \__ \/ ___/ __ \/ ___/ / __ \/ __ `/  / /| | / __ \/ __ \/ / 
+| |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /_/ /_/ /    / / / /_/ / /_/ / /  / / / / /_/ / / / / / /  __/ / / / /_    ___/ / /__/ /_/ / /  / / / / / /_/ /  / ___ |/ /_/ / /_/ /_/  
+|__/|__/\___/_/\___/\____/_/ /_/ /_/\___/   \__/\____/    /_/  \____/\__,_/_/  /_/ /_/\__,_/_/ /_/ /_/\___/_/ /_/\__/   /____/\___/\____/_/  /_/_/ /_/\__, /  /_/  |_/ .___/ .___(_)   
+                                                                                                                                  /____/         /_/   /_/          
+"
+
+BEGIN WHILE TRUE
+  PRINT "Please pick which of the following commands you would like to execute:"
+  PRINT "1. Create a new event"
+  PRINT "2. View events"
+  PRINT "3. Add individual"
+  PRINT "4. Add team"
+  PRINT "5. View individual"
+  PRINT "6. View team"
+  PRINT "7. Set event winner"
+  PRINT "8. Exit"
+
+  // Get user input
+  INPUT userChoice
+
+  // Run the appropriate function based on user input - which will be in a separate file named appropriately according to the command, e.g. "new_event.ts"
+  RUN ./commands/{commands[userChoice]}
+
+ENDWHILE

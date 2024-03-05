@@ -1,0 +1,26 @@
+events = [] // imported from the events db
+
+FUNCTION run ()
+BEGIN
+  // ask user for event name, id or "all"
+  OUTPUT "Please provide an event name, ID or say \"all\" to view all events."
+  INPUT event
+
+  // validate
+  IF event == "all" THEN
+    // show all events
+    FOR i = 0 TO LENGTH(events) - 1 DO
+      OUTPUT events[i].name
+    END FOR
+  ELSE
+    // find event
+    FOR i = 0 TO LENGTH(events) - 1 DO
+      IF events[i].name == event OR events[i].id == event THEN
+        OUTPUT "Event: " + events[i].name
+        OUTPUT "Date: " + events[i].date
+        // etc
+        BREAK
+      END IF
+    END FOR
+  END IF
+END

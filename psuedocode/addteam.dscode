@@ -1,0 +1,54 @@
+eventIDs = [] // these will be received from the JSON data file - cant replicate in psuedocode
+
+// export a function called `run`
+FUNCTION run ()
+BEGIN
+  OUTPUT "Enter a team name:"
+  // get team name
+  INPUT teamName
+  // ensure it is valid (not null)
+  WHILE teamName = NULL DO
+    OUTPUT "Please enter a valid team name:"
+    INPUT teamName
+  END WHILE
+
+  OUTPUT "Please enter the events the team is participating in, by ID, separated by commas (e.g., 1,2,4,5,7):"
+  // get event IDs
+  INPUT eventIDs
+
+  // ensure it is valid (not null) and is either 1 event or 5 events.
+  WHILE eventIDs = NULL OR (LENGTH(SPLIT(eventIDs, ",")) != 1 AND LENGTH(SPLIT(eventIDs, ",")) != 5) DO
+    OUTPUT "Please enter a valid list of event IDs:"
+    INPUT eventIDs
+  END WHILE
+
+  // ensure all entries are integers
+  FOR i IN SPLIT(eventIDs, ",") DO
+    IF NOT IS_INTEGER(i) THEN
+      OUTPUT "Please enter a valid list of event IDs:"
+      INPUT eventIDs
+    END IF
+  END FOR
+
+  // ensure all entries are valid event IDs
+  FOR i IN SPLIT(eventIDs, ",") DO
+    IF i < 1 OR i > 7 THEN
+      OUTPUT "Please enter a valid list of event IDs:"
+      INPUT eventIDs
+    END IF
+  END FOR
+
+  // get team members' names
+  OUTPUT "Please enter the names of the team members, separated by commas:"
+  INPUT teamMembers
+
+  // ensure it is valid (not null), and has 5 entries
+  WHILE teamMembers = NULL OR LENGTH(SPLIT(teamMembers, ",")) != 5 DO
+    OUTPUT "Please enter a valid list of team members:"
+    INPUT teamMembers
+  END WHILE
+
+  // add entry to JSON file
+  // cannot replicate into psuedocode, but it will create a new object with all the data
+  // then use filesystem to write to the file.
+END

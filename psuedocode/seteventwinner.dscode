@@ -1,0 +1,35 @@
+events = [] // imported from JSON DB
+
+FUNCTION run ()
+BEGIN
+  // get event name/id
+  OUTPUT "Please enter an event's name or ID:"
+  INPUT event
+
+  // check event exists
+  IF event IN events THEN
+    // get event details
+    OUTPUT "Please provide IDs of winners in ascending order (first, second, third, etc):"
+    INPUT winner
+    // check all teams exist (split winners by comma)
+    winners = SPLIT(winner, ",")
+    FOR i = 0 TO LENGTH(winners) - 1 DO
+      IF winners[i] NOT IN teams THEN
+        OUTPUT "Team " + winners[i] + " not found."
+        RETURN
+      END IF
+    END FOR
+
+    // add points to winners, based off the event id's winners' points
+    FOR i = 0 TO LENGTH(winners) - 1 DO
+      teams[winners[i]].points = teams[winners[i]].points + events[event].winners[i].points
+    END FOR
+
+    // save to db and inform user of success
+    SAVE(teams) // represents the JSON DB
+
+    OUTPUT "Winners set successfully."
+  ELSE
+    OUTPUT "Event not found."
+  END IF
+END

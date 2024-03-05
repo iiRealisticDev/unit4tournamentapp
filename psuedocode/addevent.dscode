@@ -1,0 +1,49 @@
+// Import the events information from the JSON database file
+events = [] // format is [ { id: int, name: string, date: Date, eventType: string, participantType: string }]
+eventTypes = ["Sport", "Academic"]
+
+FUNCTION run (parameters)
+BEGIN
+  // request event name
+  OUTPUT "Please enter the name of the event: "
+  INPUT event_name
+  
+  // ensure validity of event name (not null and not already existent)
+  WHILE event_name = NULL OR event_name IN events.map(n => event.name) DO
+    OUTPUT "Invalid event name. Please enter a different name: "
+    INPUT event_name
+  END WHILE
+
+  // request event type, either sport or academic
+  OUTPUT "Please enter the type of the event (Sport or Academic): "
+  INPUT event_type
+
+  // ensure validity of event type
+  WHILE event_type NOT IN eventTypes DO
+    OUTPUT "Invalid event type. Please enter a valid type (Sport or Academic): "
+    INPUT event_type
+  END WHILE
+
+  // request event date
+  OUTPUT "Please enter the date of the event (DD/MM/YYYY)"
+  INPUT event_date
+
+  // ensure validity of event date
+  WHILE event_date IS NOT A VALID DATE DO // invalid will count as dates already passed and dates with an invalid format.
+    OUTPUT "Invalid date. Please enter a valid date (DD/MM/YYYY): "
+    INPUT event_date
+  END WHILE
+
+  // request participant type
+  OUTPUT "Please enter the allowed type of participant (Individual or Team): "
+  INPUT participant_type
+
+  // ensure validity of participant type
+  WHILE participant_type NOT IN ["Individual", "Team"] DO
+    OUTPUT "Invalid participant type. Please enter a valid type (Individual or Team): "
+    INPUT participant_type
+  END WHILE
+
+  // add the event to the database
+  // cannot be replicated in psuedocode
+END
