@@ -4,6 +4,12 @@ import { Event, Individual } from "../types/Participants";
 
 export default async function (caches: Record<string, Cache<Individual | Event>>) {
   const cache = caches.individuals as Cache<Individual>;
+  // if there are 20 individals, output that the maximum has been reached
+  if (cache.keys().length === 20) {
+    console.log("The maximum number of individuals has been reached!");
+    return;
+  }
+    
   const eventCache = caches.events as Cache<Event>;
 
   const name = await prompt("What is the name of the individual?: ", (input) => input !== "" || cache.values().find((x: Individual) => x.name === input) != undefined);
