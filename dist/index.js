@@ -28,21 +28,33 @@ const input_1 = require("./helpers/input");
 const path_1 = require("path");
 const cache_1 = require("./helpers/cache");
 const caches = {
-    events: new cache_1.Cache("events"),
-    individuals: new cache_1.Cache("individuals"),
-    teams: new cache_1.Cache("teams")
+    events: new cache_1.Cache("event"),
+    individuals: new cache_1.Cache("individual"),
+    teams: new cache_1.Cache("team")
 };
 const cmdMap = {
     1: "addevent",
-    2: "view_event",
-    3: "add_individual",
-    4: "add_team",
-    5: "view_individual",
-    6: "view_team",
-    7: "set_event_winner",
+    2: "viewevent",
+    3: "addindividual",
+    4: "addteam",
+    5: "viewindividual",
+    6: "viewteam",
+    7: "seteventwinner",
     8: "exit"
 };
 async function main() {
+    setInterval(() => {
+        try {
+            // perform autosaves
+            const toSave = Object.values(caches);
+            for (const value of toSave) {
+                value.saveData();
+            }
+        }
+        catch (e) {
+            console.error("Error saving data", e);
+        }
+    }, 60000);
     const intro = "Welcome to the Tournament App!";
     console.log(intro);
     // eslint-disable-next-line no-constant-condition

@@ -13,7 +13,7 @@ export default async function (caches: Record<string, Cache<Individual | Event>>
   const eventCache = caches.events as Cache<Event>;
 
   const name = await prompt("What is the name of the individual?: ", (input) => input !== "" || cache.values().find((x: Individual) => x.name === input) != undefined);
-  const events = await prompt("What events is the individual participating in? (comma separated IDs): ", (input) => input !== "");
+  const events = await prompt("What events is the individual participating in? (comma separated IDs, either 1 event or 5): ", (input) => input !== "");
   const id = cache.keys().length + 1;
 
   const eventsArray = events.split(",").map(eventId => {

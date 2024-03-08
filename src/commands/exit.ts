@@ -1,9 +1,10 @@
 import type { Cache } from "../helpers/cache";
-import type { Individual, Team, Event } from "../types/Participants";
-export default async function (caches: Cache<Individual | Team | Event>[]) {
+import type { Team } from "../types/Participants";
+
+export default async function (caches: Record<string, Cache<Team>>) {
   // run the save function on all caches.
   console.log("Saving, do not close the app!");
-  for (const cache of caches) {
+  for (const cache of Object.values(caches)) {
     cache.saveData();
   }
   process.exit();

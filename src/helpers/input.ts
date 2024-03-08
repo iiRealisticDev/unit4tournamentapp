@@ -24,3 +24,7 @@ export function isDate(input: string) {
     return false;
   }
 }
+
+export function isEventList(input: string) {
+  return input.split(",").every((x) => !isNaN(parseInt(x)) && parseInt(x) > 0) && input.split(",").length == 1 || input.split(",").length == 5;
+}

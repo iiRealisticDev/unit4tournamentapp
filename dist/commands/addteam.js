@@ -1,0 +1,36 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const input_1 = require("../helpers/input");
+async function default_1(caches) {
+    const cache = caches.teams;
+    // if there are 4 teams already, output that the maximum has been reached
+    if (cache.keys().length === 4) {
+        console.log("The maximum number of teams has been reached!");
+        return;
+    }
+    const eventCache = caches.events;
+    const name = await (0, input_1.prompt)("What is the name of the team?: ", (input) => input !== "" || cache.values().find((x) => x.name === input) != undefined);
+    const events = await (0, input_1.prompt)("What events is the team participating in? (comma separated IDs, either 1 event or 5): ", (input) => {
+        // ensure input is not null, exists in the event cache and there are 5 events listed
+        return input !== "" && input.split(",").every((eventId) => eventCache.get(eventId) !== undefined) && (input.split(",").length === 5 || input.split(",").length === 1);
+    });
+    const participants = await (0, input_1.prompt)("What are the names of the participants? (comma separated names): ", (input) => {
+        // same validation as above, excluding checking event cache
+        return input !== "" && input.split(",").length === 5;
+    });
+    const id = cache.keys().length + 1;
+    const eventsArray = events.split(",").map(eventId => {
+        const event = eventCache.get(eventId);
+        if (event !== undefined)
+            return event;
+    });
+    cache.set(id.toString(), {
+        name,
+        eventsParticipatingIn: eventsArray,
+        participants: participants.split(","),
+        points: 0
+    });
+    cache.saveData();
+    console.log("Individual added successfully!");
+}
+exports.default = default_1;

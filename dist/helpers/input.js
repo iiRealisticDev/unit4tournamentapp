@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isDate = exports.prompt = void 0;
+exports.isEventList = exports.isDate = exports.prompt = void 0;
 const promises_1 = __importDefault(require("readline/promises"));
 // create a readline interface - this allows me to interact with terminal input in TypeScript
 const rl = promises_1.default.createInterface({
@@ -32,3 +32,7 @@ function isDate(input) {
     }
 }
 exports.isDate = isDate;
+function isEventList(input) {
+    return input.split(",").every((x) => !isNaN(parseInt(x)) && parseInt(x) > 0) && input.split(",").length == 1 || input.split(",").length == 5;
+}
+exports.isEventList = isEventList;

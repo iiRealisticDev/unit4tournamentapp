@@ -1,1 +1,28 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const input_1 = require("../helpers/input");
+async function default_1(caches) {
+    const cache = caches.individuals;
+    // if there are 20 individals, output that the maximum has been reached
+    if (cache.keys().length === 20) {
+        console.log("The maximum number of individuals has been reached!");
+        return;
+    }
+    const eventCache = caches.events;
+    const name = await (0, input_1.prompt)("What is the name of the individual?: ", (input) => input !== "" || cache.values().find((x) => x.name === input) != undefined);
+    const events = await (0, input_1.prompt)("What events is the individual participating in? (comma separated IDs, either 1 event or 5): ", (input) => input !== "");
+    const id = cache.keys().length + 1;
+    const eventsArray = events.split(",").map(eventId => {
+        const event = eventCache.get(eventId);
+        if (event !== undefined)
+            return event;
+    });
+    cache.set(id.toString(), {
+        name,
+        eventsParticipatingIn: eventsArray,
+        points: 0
+    });
+    cache.saveData();
+    console.log("Individual added successfully!");
+}
+exports.default = default_1;

@@ -3,7 +3,7 @@ import { prompt } from "../helpers/input";
 import { Event, Team } from "../types/Participants";
 
 export default async function (caches: Record<string, Cache<Team | Event>>) {
-  const cache = caches.individuals as Cache<Team>;
+  const cache = caches.teams as Cache<Team>;
   // if there are 4 teams already, output that the maximum has been reached
   if (cache.keys().length === 4) {
     console.log("The maximum number of teams has been reached!");
@@ -13,9 +13,9 @@ export default async function (caches: Record<string, Cache<Team | Event>>) {
   const eventCache = caches.events as Cache<Event>;
 
   const name = await prompt("What is the name of the team?: ", (input) => input !== "" || cache.values().find((x: Team) => x.name === input) != undefined);
-  const events = await prompt("What events is the team participating in? (comma separated IDs): ", (input) => {
+  const events = await prompt("What events is the team participating in? (comma separated IDs, either 1 event or 5): ", (input) => {
     // ensure input is not null, exists in the event cache and there are 5 events listed
-    return input !== "" && input.split(",").every((eventId) => eventCache.get(eventId) !== undefined) && input.split(",").length === 5;
+    return input !== "" && input.split(",").every((eventId) => eventCache.get(eventId) !== undefined) && (input.split(",").length === 5 || input.split(",").length === 1);
   });
   const participants = await prompt("What are the names of the participants? (comma separated names): ", (input) => {
     // same validation as above, excluding checking event cache
