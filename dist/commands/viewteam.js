@@ -12,7 +12,7 @@ async function default_1(caches) {
     const team = teams.get(toView);
     // if the team is not found, print a message
     if (!team && team !== "all") {
-        console.log("team not found");
+        console.log("Team not found");
     }
     // if the user wants to view all teams, print all the teams
     if (toView === "all") {

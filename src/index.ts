@@ -69,8 +69,6 @@ async function main() {
 
     const pth = join(__dirname, "commands", cmdToRun + ".js"); // get the path to the command file - this ends in .js because the output code is in JavaScript
 
-    console.log(pth);
-
     // check it exists in ./commands/
     if (existsSync(pth)) {
       const { default: command } = await import(pth); // import the file

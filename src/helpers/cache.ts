@@ -79,7 +79,6 @@ export class Cache<V> {
   public getKeyFromName(name: string) {
     // get the key from the name
     for (const [key, value] of this.cache.entries()) {
-      console.log(key, value);
       
       if ((value as {name: string}).name == name) {
         return key;

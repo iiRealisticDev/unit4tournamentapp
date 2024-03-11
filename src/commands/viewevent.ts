@@ -26,7 +26,7 @@ export default async function (caches: Record<string, Cache<Event>>) {
     }
     console.log("All events:");
     for (const event of eventCache.values()) {
-      console.log(event);
+      console.log(`Event Name: ${event.name} | Event Start Date: ${event.dateStart} | Event End Date: ${event.dateEnd}`);
     }
     return;
   }

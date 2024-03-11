@@ -19,9 +19,7 @@ async function default_1(caches) {
     }
     // request placements as comma separated list
     const placements = await (0, input_1.prompt)("Enter the winners for the event as a comma separated list, in ascending order (i.e., 1st, 2nd, 3rd, etc): ", (input) => {
-        console.log("validating");
         const split = input.split(",");
-        console.log(split.length, event.points.length, split.length === event.points.length);
         return split.length === event.points.length;
     });
     // get placements as array of numbers
@@ -34,7 +32,6 @@ async function default_1(caches) {
     }
     // get winners from cache
     if (event.eventType == "individual") {
-        console.log("indi");
         const winners = placements.split(",").map((placement) => {
             return individualCache.get(placement);
         });
@@ -54,18 +51,13 @@ async function default_1(caches) {
         // update individual cache
     }
     else if (event.eventType == "team") {
-        console.log("team");
         const winners = placements.split(",").map((placement) => {
-            console.log(placement);
-            console.log(teamCache.get(placement.toString()));
-            console.log(Array.from(teamCache.values()));
             return teamCache.get(placement.toString());
         });
         // deal out points
         winners.forEach((winner, i) => {
             if (winner) {
                 const winnerObj = winner;
-                console.log(winner, points[i]);
                 winnerObj.points += points[i];
                 // update cache
                 teamCache.set(teamCache.getKeyFromName(winner.name), winnerObj);

@@ -21,7 +21,7 @@ async function default_1(caches) {
         }
         console.log("All events:");
         for (const event of eventCache.values()) {
-            console.log(event);
+            console.log(`Event Name: ${event.name} | Event Start Date: ${event.dateStart} | Event End Date: ${event.dateEnd}`);
         }
         return;
     }

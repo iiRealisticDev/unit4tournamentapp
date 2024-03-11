@@ -81,7 +81,6 @@ class Cache {
     getKeyFromName(name) {
         // get the key from the name
         for (const [key, value] of this.cache.entries()) {
-            console.log(key, value);
             if (value.name == name) {
                 return key;
             }

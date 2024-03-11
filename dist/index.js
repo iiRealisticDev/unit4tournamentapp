@@ -83,7 +83,6 @@ async function main() {
         });
         const cmdToRun = cmdMap[cmd]; // get the command to run from the map
         const pth = (0, path_1.join)(__dirname, "commands", cmdToRun + ".js"); // get the path to the command file - this ends in .js because the output code is in JavaScript
-        console.log(pth);
         // check it exists in ./commands/
         if ((0, fs_1.existsSync)(pth)) {
             const { default: command } = await Promise.resolve(`${pth}`).then(s => __importStar(require(s))); // import the file
