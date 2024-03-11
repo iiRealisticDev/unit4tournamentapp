@@ -2,14 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const input_1 = require("../helpers/input");
 async function default_1(caches) {
+    // get all caches
     const eventCache = caches.events;
     const individualCache = caches.individuals;
     const teamCache = caches.teams;
-    console.log(eventCache, individualCache, teamCache);
+    // get the name of the event to set a winner for
     const eventName = await (0, input_1.prompt)("Enter the name/ID of the event to set a winner for", (input) => {
         return eventCache.has(input) || eventCache.values().some((event) => event.name === input);
     });
+    // try to get the event from the cache
     const event = eventCache.get(eventName) || eventCache.values().find((event) => event.name === eventName);
+    // if the event is not found, print a message
     if (!event) {
         console.log("Event not found");
         return;
@@ -21,16 +24,14 @@ async function default_1(caches) {
         console.log(split.length, event.points.length, split.length === event.points.length);
         return split.length === event.points.length;
     });
-    console.log("applying stuff");
+    // get placements as array of numbers
     const splitPlacements = placements.split(",").map((placement) => parseInt(placement));
-    console.log(splitPlacements);
     const points = Array.from(event.points.values());
-    console.log(points);
     const pointMap = new Map();
+    // create a map of placements to points
     for (let i = 0; i < points.length; i++) {
         pointMap.set(points[i], splitPlacements[i]);
     }
-    console.log(pointMap);
     // get winners from cache
     if (event.eventType == "individual") {
         console.log("indi");

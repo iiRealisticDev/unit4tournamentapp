@@ -22,9 +22,14 @@ async function prompt(question, validator) {
     }
 }
 exports.prompt = prompt;
+// a function to check if a string is a date
 function isDate(input) {
     try {
-        new Date(input);
+        const date = new Date(input);
+        // check date is today or in the future
+        if (date.getTime() < new Date().getTime()) {
+            return false;
+        }
         return true;
     }
     catch {
@@ -32,6 +37,7 @@ function isDate(input) {
     }
 }
 exports.isDate = isDate;
+// a function to check if a string is a list of numbers
 function isEventList(input) {
     return input.split(",").every((x) => !isNaN(parseInt(x)) && parseInt(x) > 0) && input.split(",").length == 1 || input.split(",").length == 5;
 }
