@@ -9,7 +9,7 @@ export default async function (caches: Record<string, Cache<Event | Individual |
   const teamCache = caches.teams as Cache<Team>;
 
   // get the name of the event to set a winner for
-  const eventName = await prompt("Enter the name/ID of the event to set a winner for", (input) => {
+  const eventName = await prompt("Enter the name/ID of the event to set a winner for: ", (input) => {
     return eventCache.has(input) || eventCache.values().some((event) => event.name === input);
   });
 

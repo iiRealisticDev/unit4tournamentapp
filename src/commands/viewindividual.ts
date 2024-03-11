@@ -7,7 +7,7 @@ export default async function (caches: Record<string, Cache<Individual>>) {
   const individuals = caches.individuals;
   
   // get the name of the individual to view
-  const toView = await prompt("Enter the name/ID of the individual to view", (input) => {
+  const toView = await prompt("Enter the name/ID of the individual to view: ", (input) => {
     return input.toLowerCase() == "all" || individuals.values().some((individual) => individual.name === input) || individuals.has(input);
   });
 

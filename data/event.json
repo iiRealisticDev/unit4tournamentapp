@@ -1,1 +1,1 @@
-{"1":{"name":"test","points":[3,2,1],"eventCat":"sport","eventType":"team"}}
+{"1":{"name":"test","points":[3,2,1],"eventCat":"sport","eventType":"team"},"2":{"name":"keith","points":[3,2,1],"eventCat":"sport","eventType":"individual","winner":"keith"},"keith":{"name":"keith","points":[3,2,1],"eventCat":"sport","eventType":"individual","winner":"keith"}}
