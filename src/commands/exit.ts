@@ -5,7 +5,7 @@ export default async function (caches: Record<string, Cache<Team>>) {
   // run the save function on all caches.
   console.log("Saving, do not close the app!");
   for (const cache of Object.values(caches)) {
-    cache.saveData();
+    cache.saveData(); // save the data
   }
   process.exit();
 }

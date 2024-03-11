@@ -1,3 +1,5 @@
+// Type definitions for Participants - really the whole app. 
+
 export type Participant = string;
 
 export type Event = {
