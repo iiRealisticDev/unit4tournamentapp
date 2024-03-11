@@ -7,7 +7,7 @@ export default async function (caches: Record<string, Cache<Team>>) {
   const teams = caches.teams;
   
   // get the name of the team to view
-  const toView = await prompt("Enter the name/ID of the team to view: ", (input) => {
+  const toView = await prompt("Enter the name/ID of the team to view, or all: ", (input) => {
     return input.toLowerCase() == "all" || teams.values().some((team) => team.name === input) || teams.has(input);
   });
 
@@ -38,6 +38,7 @@ export default async function (caches: Record<string, Cache<Team>>) {
   Name: ${team?.name}
   Points: ${team?.points}
   Events Participating In: ${team?.eventsParticipatingIn.map((event) => event.name).join(", ")}
+  Members: ${team?.participants.map((member) => member).join(", ")}
   `;
 
   console.log(readableString);

@@ -13,7 +13,14 @@ async function default_1(caches) {
     // get the name of the individual
     const name = await (0, input_1.prompt)("What is the name of the individual?: ", (input) => input !== "" || cache.values().find((x) => x.name === input) != undefined);
     // get the events the individual is participating in
-    const events = await (0, input_1.prompt)("What events is the individual participating in? (comma separated IDs, either 1 event or 5): ", (input) => input !== "");
+    const events = await (0, input_1.prompt)("What events is the individual participating in? (comma separated IDs, either 1 event or 5): ", (input) => {
+        const events = input.split(",").map(eventId => eventCache.get(eventId));
+        // ensure event type is individual
+        const notNull = input !== "";
+        const isIndividual = events.every((event) => event?.eventType === "individual");
+        const isOfLength = input.split(",").length === 5 || input.split(",").length === 1;
+        return notNull && isIndividual && isOfLength;
+    });
     // get the id for the individual
     const id = cache.keys().length + 1;
     // get the events the individual is participating in

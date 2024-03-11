@@ -5,7 +5,7 @@ async function default_1(caches) {
     // individual cache
     const individuals = caches.individuals;
     // get the name of the individual to view
-    const toView = await (0, input_1.prompt)("Enter the name/ID of the individual to view", (input) => {
+    const toView = await (0, input_1.prompt)("Enter the name/ID of the individual to view, or all: ", (input) => {
         return input.toLowerCase() == "all" || individuals.values().some((individual) => individual.name === input) || individuals.has(input);
     });
     // try to get the individual from the cache

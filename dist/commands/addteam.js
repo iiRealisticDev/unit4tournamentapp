@@ -14,7 +14,12 @@ async function default_1(caches) {
     // get the events the team is participating in
     const events = await (0, input_1.prompt)("What events is the team participating in? (comma separated IDs, either 1 event or 5): ", (input) => {
         // ensure input is not null, exists in the event cache and there are 5 events listed
-        return input !== "" && input.split(",").every((eventId) => eventCache.get(eventId) !== undefined) && (input.split(",").length === 5 || input.split(",").length === 1);
+        const eventsArr = input.split(",").map(eventId => eventCache.get(eventId));
+        // ensure event type is team
+        const notNull = input !== "";
+        const isIndividual = eventsArr.every((event) => event?.eventType === "team");
+        const isOfLength = input.split(",").length === 5 || input.split(",").length === 1;
+        return notNull && isIndividual && isOfLength;
     });
     // get the participants of the team
     const participants = await (0, input_1.prompt)("What are the names of the participants? (comma separated names): ", (input) => {
@@ -37,6 +42,6 @@ async function default_1(caches) {
         points: 0
     });
     cache.saveData();
-    console.log("Individual added successfully!");
+    console.log("Team added successfully!");
 }
 exports.default = default_1;

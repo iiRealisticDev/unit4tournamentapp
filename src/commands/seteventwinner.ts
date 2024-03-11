@@ -58,7 +58,7 @@ export default async function (caches: Record<string, Cache<Event | Individual |
     // set event winner
     event.winner = winners[0]?.name;
     // update cache
-    eventCache.set(event.name, event);
+    eventCache.set(eventCache.getKeyFromName(event.name) as string, event);
     // update individual cache
 
   } else if (event.eventType == "team") {

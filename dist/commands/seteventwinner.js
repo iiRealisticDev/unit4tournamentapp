@@ -7,7 +7,7 @@ async function default_1(caches) {
     const individualCache = caches.individuals;
     const teamCache = caches.teams;
     // get the name of the event to set a winner for
-    const eventName = await (0, input_1.prompt)("Enter the name/ID of the event to set a winner for", (input) => {
+    const eventName = await (0, input_1.prompt)("Enter the name/ID of the event to set a winner for: ", (input) => {
         return eventCache.has(input) || eventCache.values().some((event) => event.name === input);
     });
     // try to get the event from the cache
@@ -47,7 +47,7 @@ async function default_1(caches) {
         // set event winner
         event.winner = winners[0]?.name;
         // update cache
-        eventCache.set(event.name, event);
+        eventCache.set(eventCache.getKeyFromName(event.name), event);
         // update individual cache
     }
     else if (event.eventType == "team") {

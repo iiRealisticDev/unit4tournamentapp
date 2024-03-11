@@ -16,7 +16,14 @@ export default async function (caches: Record<string, Cache<Individual | Event>>
   // get the name of the individual
   const name = await prompt("What is the name of the individual?: ", (input) => input !== "" || cache.values().find((x: Individual) => x.name === input) != undefined);
   // get the events the individual is participating in
-  const events = await prompt("What events is the individual participating in? (comma separated IDs, either 1 event or 5): ", (input) => input !== "");
+  const events = await prompt("What events is the individual participating in? (comma separated IDs, either 1 event or 5): ", (input) => {
+    const events = input.split(",").map(eventId => eventCache.get(eventId));
+    // ensure event type is individual
+    const notNull = input !== "";
+    const isIndividual = events.every((event) => event?.eventType === "individual");
+    const isOfLength = input.split(",").length === 5 || input.split(",").length === 1;
+    return notNull && isIndividual && isOfLength;
+  });
   // get the id for the individual
   const id = cache.keys().length + 1;
 
