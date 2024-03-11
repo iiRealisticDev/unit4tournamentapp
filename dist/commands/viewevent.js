@@ -5,9 +5,9 @@ async function default_1(caches) {
     // view events
     const eventCache = caches.events;
     // get the name of the event to view
-    const toView = await (0, input_1.prompt)("Please provide an event name, id or the world \"all\": ", (input) => input !== "" || eventCache.values().find((x) => x.name === input) != undefined || input.toLowerCase() === "all" || eventCache.get(input) !== undefined);
-    // try to get the event from the cache
-    const eventId = toView === "all" ? parseInt(toView) !== undefined ? toView : undefined : eventCache.getKeyFromName(toView);
+    const toView = await (0, input_1.prompt)("Please provide an event name, id or the word \"all\": ", (input) => input !== "" || eventCache.values().find((x) => x.name === input) != undefined || input.toLowerCase() === "all" || eventCache.get(input) !== undefined);
+    // try to get the event from the cache, if the keyword is not "all"
+    const eventId = toView === "all" ? undefined : eventCache.getKeyFromName(toView) ?? toView;
     // if the event is not found, print a message
     if (eventId === undefined) {
         console.log("Invalid event name or ID!");
@@ -21,7 +21,7 @@ async function default_1(caches) {
         }
         console.log("All events:");
         for (const event of eventCache.values()) {
-            console.log(`Event Name: ${event.name} | Event Start Date: ${event.dateStart} | Event End Date: ${event.dateEnd}`);
+            console.log(`${event.name}`);
         }
         return;
     }
@@ -35,8 +35,6 @@ async function default_1(caches) {
     // print the event's details
     const eventInfo = `
   Event Name: ${event.name}
-  Event Start Date: ${event.dateStart}
-  Event End Date: ${event.dateEnd}
   Event Winner: ${event.winner ?? "No winner yet!"}
   Event Category: ${event.eventCat}
   Event Points: ${event.points.join(", ")}

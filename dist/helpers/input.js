@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isEventList = exports.isDate = exports.prompt = void 0;
+exports.isEventList = exports.prompt = void 0;
 const promises_1 = __importDefault(require("readline/promises"));
 // create a readline interface - this allows me to interact with terminal input in TypeScript
 const rl = promises_1.default.createInterface({
@@ -22,21 +22,6 @@ async function prompt(question, validator) {
     }
 }
 exports.prompt = prompt;
-// a function to check if a string is a date
-function isDate(input) {
-    try {
-        const date = new Date(input);
-        // check date is today or in the future
-        if (date.getTime() < new Date().getTime()) {
-            return false;
-        }
-        return true;
-    }
-    catch {
-        return false;
-    }
-}
-exports.isDate = isDate;
 // a function to check if a string is a list of numbers
 function isEventList(input) {
     return input.split(",").every((x) => !isNaN(parseInt(x)) && parseInt(x) > 0) && input.split(",").length == 1 || input.split(",").length == 5;

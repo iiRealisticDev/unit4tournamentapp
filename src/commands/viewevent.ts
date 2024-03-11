@@ -7,10 +7,10 @@ export default async function (caches: Record<string, Cache<Event>>) {
   const eventCache = caches.events;
 
   // get the name of the event to view
-  const toView = await prompt("Please provide an event name, id or the world \"all\": ", (input) => input !== "" || eventCache.values().find((x: Event) => x.name === input) != undefined || input.toLowerCase() === "all" || eventCache.get(input) !== undefined);
+  const toView = await prompt("Please provide an event name, id or the word \"all\": ", (input) => input !== "" || eventCache.values().find((x: Event) => x.name === input) != undefined || input.toLowerCase() === "all" || eventCache.get(input) !== undefined);
 
-  // try to get the event from the cache
-  const eventId = toView === "all" ? parseInt(toView) !== undefined ? toView : undefined : eventCache.getKeyFromName(toView);
+  // try to get the event from the cache, if the keyword is not "all"
+  const eventId = toView === "all" ? undefined : eventCache.getKeyFromName(toView) ?? toView;
 
   // if the event is not found, print a message
   if (eventId === undefined) {
@@ -26,13 +26,12 @@ export default async function (caches: Record<string, Cache<Event>>) {
     }
     console.log("All events:");
     for (const event of eventCache.values()) {
-      console.log(`Event Name: ${event.name} | Event Start Date: ${event.dateStart} | Event End Date: ${event.dateEnd}`);
+      console.log(`${event.name}`);
     }
     return;
   }
-
   // print the event's details
-  const event = eventCache.get(eventId);
+  const event = eventCache.get(eventId as string);
 
   // if the event is not found, print a message
   if (event === undefined) {
@@ -43,8 +42,6 @@ export default async function (caches: Record<string, Cache<Event>>) {
   // print the event's details
   const eventInfo = `
   Event Name: ${event.name}
-  Event Start Date: ${event.dateStart}
-  Event End Date: ${event.dateEnd}
   Event Winner: ${event.winner ?? "No winner yet!"}
   Event Category: ${event.eventCat}
   Event Points: ${event.points.join(", ")}
